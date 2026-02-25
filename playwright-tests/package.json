@@ -1,0 +1,23 @@
+{
+  "name": "contact-manager-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright end-to-end test suite for the Contact Manager Angular app on port 4200",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test",
+    "test:headed": "npx playwright test --headed",
+    "test:debug": "npx playwright test --debug",
+    "show-report": "npx playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "e2e",
+    "angular",
+    "contact-manager"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2"
+  }
+}

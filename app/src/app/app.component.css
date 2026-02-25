@@ -1,0 +1,241 @@
+:host {
+  display: block;
+  min-height: 100vh;
+  background: #0f172a;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #e5e7eb;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.card {
+  width: 100%;
+  background: #020617;
+  border-radius: 1rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  padding: 1.75rem;
+  box-sizing: border-box;
+}
+
+.card-header h1 {
+  margin: 0;
+  font-size: 3.5rem;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+}
+
+.subtitle {
+  margin-top: 0.25rem;
+  color: #9ca3af;
+  font-size: 1.8rem;
+}
+
+.toolbar {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.toolbar input {
+  flex: 1;
+  padding: 0.6rem 0.85rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 1.9rem;
+}
+
+.toolbar input::placeholder {
+  color: #6b7280;
+}
+
+.toolbar button {
+  padding: 0.6rem 1rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  font-weight: 500;
+  font-size: 1.8rem;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.toolbar button:hover {
+  filter: brightness(1.05);
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 1.5rem;
+}
+
+.list-panel,
+.form-panel {
+  background: radial-gradient(circle at top left, rgba(37, 99, 235, 0.12), transparent 55%),
+    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.12), transparent 55%);
+  border-radius: 0.9rem;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.list-panel h2,
+.form-panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #e5e7eb;
+}
+
+.empty {
+  font-size: 1.8rem;
+  color: #9ca3af;
+  padding: 0.5rem 0;
+}
+
+.contact-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.contact-list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.65rem 0.75rem;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.05s ease;
+}
+
+.contact-list li:hover {
+  background: rgba(30, 64, 175, 0.35);
+}
+
+.contact-list li.selected {
+  background: rgba(30, 64, 175, 0.6);
+  transform: translateY(-1px);
+}
+
+.contact-main {
+  display: flex;
+  flex-direction: column;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 1.9rem;
+}
+
+.phone {
+  font-size: 1.7rem;
+  color: #cbd5f5;
+}
+
+.contact-meta {
+  font-size: 1.6rem;
+  color: #9ca3af;
+  margin-top: 0.2rem;
+}
+
+.delete {
+  border: none;
+  background: transparent;
+  color: #f97373;
+  font-size: 1.8rem;
+  cursor: pointer;
+  padding: 0.1rem 0.3rem;
+  border-radius: 999px;
+}
+
+.delete:hover {
+  background: rgba(248, 113, 113, 0.12);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.6rem;
+  color: #9ca3af;
+  gap: 0.2rem;
+}
+
+input[type='text'],
+input[type='email'] {
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.65rem;
+  border: 1px solid rgba(148, 163, 184, 0.55);
+  background: rgba(15, 23, 42, 0.9);
+  color: #e5e7eb;
+  font-size: 1.8rem;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.actions button {
+  flex: 1;
+  padding: 0.55rem 0.75rem;
+  border-radius: 0.7rem;
+  border: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.actions button[type='submit'] {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: white;
+}
+
+.actions .secondary {
+  background: transparent;
+  border: 1px solid rgba(148, 163, 184, 0.6);
+  color: #e5e7eb;
+}
+
+.actions .secondary:hover {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.placeholder {
+  margin-top: 0.5rem;
+  font-size: 1.8rem;
+  color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+  .content {
+    grid-template-columns: 1fr;
+  }
+
+  .list-panel {
+    max-height: 260px;
+  }
+}
+

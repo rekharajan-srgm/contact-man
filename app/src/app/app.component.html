@@ -1,0 +1,98 @@
+<main class="container">
+  <section class="card">
+    <header class="card-header">
+      <h1>{{ title }}</h1>
+      <p class="subtitle">Manage your contacts with search and local storage.</p>
+    </header>
+
+    <section class="toolbar">
+      <input
+        type="text"
+        placeholder="Search by name, phone, or email..."
+        [(ngModel)]="searchTerm"
+      />
+      <button type="button" (click)="newContact()">+ New Contact</button>
+    </section>
+
+    <section class="content">
+      <div class="list-panel">
+        <h2>Contacts ({{ filteredContacts.length }})</h2>
+        <div *ngIf="!filteredContacts.length" class="empty">
+          No contacts found.
+        </div>
+
+        <ul class="contact-list">
+          <li
+            *ngFor="let contact of filteredContacts"
+            (click)="editContact(contact)"
+            [class.selected]="selectedContact?.id === contact.id"
+          >
+            <div class="contact-main">
+              <span class="name">{{ contact.name }}</span>
+              <span class="phone">{{ contact.phone }}</span>
+            </div>
+            <div class="contact-meta" *ngIf="contact.email">
+              {{ contact.email }}
+            </div>
+            <button
+              type="button"
+              class="delete"
+              (click)="$event.stopPropagation(); deleteContact(contact)"
+            >
+              ✕
+            </button>
+          </li>
+        </ul>
+      </div>
+
+      <div class="form-panel">
+        <h2>{{ selectedContact ? 'Edit Contact' : 'New Contact' }}</h2>
+
+        <form *ngIf="selectedContact; else selectPrompt" (ngSubmit)="saveSelectedContact()">
+          <label>
+            Name
+            <input
+              type="text"
+              [(ngModel)]="selectedContact.name"
+              name="name"
+              required
+            />
+          </label>
+
+          <label>
+            Phone
+            <input
+              type="text"
+              [(ngModel)]="selectedContact.phone"
+              name="phone"
+              required
+            />
+          </label>
+
+          <label>
+            Email
+            <input
+              type="email"
+              [(ngModel)]="selectedContact.email"
+              name="email"
+            />
+          </label>
+
+          <div class="actions">
+            <button type="submit">Save</button>
+            <button type="button" class="secondary" (click)="cancelEdit()">
+              Cancel
+            </button>
+          </div>
+        </form>
+
+        <ng-template #selectPrompt>
+          <p class="placeholder">
+            Select a contact from the list or click "New Contact" to add one.
+          </p>
+        </ng-template>
+      </div>
+    </section>
+  </section>
+</main>
+

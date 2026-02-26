@@ -17,7 +17,7 @@ interface Contact {
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'Contact Manager';
+  title = 'My Contact App';
 
   searchTerm = '';
   contacts: Contact[] = [];

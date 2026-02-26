@@ -68,7 +68,7 @@ pipeline {
                 dir('playwright-tests') {
                     sh '. $NVM_DIR/nvm.sh && npm ci'
                     // Install Chromium + its OS-level deps in one shot
-                    sh '. $NVM_DIR/nvm.sh && npx playwright install --with-deps chromium'
+                    sh '. $NVM_DIR/nvm.sh && npx playwright install chromium'
                 }
             }
         }

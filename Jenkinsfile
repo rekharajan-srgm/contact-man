@@ -1,12 +1,9 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'NodeJS-18'   // Must match the NodeJS installation name in Jenkins → Global Tool Configuration
-    }
-
     environment {
-        CI = 'true'          // Tells Playwright to retry on failure (retries: 2) and not reuse existing server
+        CI      = 'true'             // Playwright: retry on CI, always start fresh server
+        NVM_DIR = "${env.HOME}/.nvm" // nvm installation directory
     }
 
     options {
@@ -25,12 +22,31 @@ pipeline {
         }
 
         // ──────────────────────────────────────────────
+        // Node.js setup via nvm (no NodeJS plugin needed)
+        // ──────────────────────────────────────────────
+        stage('Setup Node.js') {
+            steps {
+                sh '''
+                    # Install nvm if not already present
+                    if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+                        curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+                    fi
+                    . $NVM_DIR/nvm.sh
+                    nvm install 18
+                    nvm alias default 18
+                    node --version
+                    npm --version
+                '''
+            }
+        }
+
+        // ──────────────────────────────────────────────
         // Angular application
         // ──────────────────────────────────────────────
         stage('Install App Dependencies') {
             steps {
                 dir('app') {
-                    sh 'npm ci'
+                    sh '. $NVM_DIR/nvm.sh && npm ci'
                 }
             }
         }
@@ -38,7 +54,7 @@ pipeline {
         stage('Build Angular App') {
             steps {
                 dir('app') {
-                    sh 'npm run build'
+                    sh '. $NVM_DIR/nvm.sh && npm run build'
                 }
             }
         }
@@ -49,9 +65,9 @@ pipeline {
         stage('Install Playwright Dependencies') {
             steps {
                 dir('playwright-tests') {
-                    sh 'npm ci'
+                    sh '. $NVM_DIR/nvm.sh && npm ci'
                     // Install Chromium + its OS-level deps in one shot
-                    sh 'npx playwright install --with-deps chromium'
+                    sh '. $NVM_DIR/nvm.sh && npx playwright install --with-deps chromium'
                 }
             }
         }
@@ -59,10 +75,8 @@ pipeline {
         stage('Run Playwright Tests') {
             steps {
                 dir('playwright-tests') {
-                    // playwright.config.js already contains a webServer block that
-                    // starts "npm start --prefix ../app" on port 4200 and waits for
-                    // it to be ready before executing the tests.
-                    sh 'npm test'
+                    // playwright.config.js webServer block auto-starts Angular on port 4200
+                    sh '. $NVM_DIR/nvm.sh && npm test'
                 }
             }
         }

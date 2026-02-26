@@ -84,17 +84,7 @@ pipeline {
 
     post {
         always {
-            // Publish the HTML report (requires the "HTML Publisher" Jenkins plugin)
-            publishHTML(target: [
-                allowMissing         : true,
-                alwaysLinkToLastBuild: true,
-                keepAll              : true,
-                reportDir            : 'playwright-tests/playwright-report',
-                reportFiles          : 'index.html',
-                reportName           : 'Playwright Report'
-            ])
-
-            // Archive test artifacts so they survive workspace cleanup
+            // Archive Playwright HTML report and test artefacts
             archiveArtifacts artifacts: 'playwright-tests/playwright-report/**',
                              allowEmptyArchive: true
 

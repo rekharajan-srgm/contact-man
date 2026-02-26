@@ -24,7 +24,11 @@ module.exports = defineConfig({
   ],
 
   webServer: {
-    command: 'npm start --prefix ../app',
+    // CI: serve the pre-built dist/ (lightweight, avoids OOM from ng serve's esbuild watch mode)
+    // Local: use ng serve for hot-reload dev experience
+    command: process.env.CI
+      ? 'npx serve@latest ../app/dist/contact-manager -p 4200 -s --no-clipboard'
+      : 'npm start --prefix ../app',
     port: 4200,
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
